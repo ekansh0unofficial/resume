@@ -1,0 +1,152 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ekansh Mittal — Resume</title>
+  <meta name="description" content="Resume of Ekansh Mittal — Flutter, Python, Java. Cross-platform apps, scalable backends, AI/ML integrations." />
+  <meta name="theme-color" content="#f8fafc" />
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#1a1f36;
+      --muted:#94a3b8;
+      --text:#e2e8f0;
+      --accent:#7c3aed;
+      --accent-2:#22d3ee;
+      --chip:#2a2f4d;
+      --shadow:0 2px 8px rgba(0,0,0,0.4);
+      
+    }
+    [data-theme="dark"]{
+      --bg:#f8fafc;
+      --panel:#ffffff;
+      --muted:#475569;
+      --text:#0f172a;
+      --accent:#6366f1;
+      --accent-2:#0ea5e9;
+      --chip:#f1f5f9;
+      --shadow:0 2px 6px rgba(0,0,0,0.08);
+      --radius:12px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;background:var(--bg);color:var(--text);cursor:default;}
+    a,button{cursor:pointer;text-decoration:none}
+
+    .container{max-width:1100px;margin-inline:auto;padding:12px}
+    header{padding:16px 0;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
+    header h1{font-size:26px;font-weight:700;color:var(--accent)}
+    header nav{display:flex;gap:14px;align-items:center}
+    .btn{padding:10px 16px;border-radius:6px;background:var(--accent);color:white;cursor:pointer;border:none;box-shadow:var(--shadow);font-size:14px;display:flex;align-items:center;gap:6px}
+    .btn:hover{background:var(--accent-2)}
+
+    main{display:grid;grid-template-columns:2fr 1fr;gap:24px}
+    @media(max-width:900px){main{grid-template-columns:1fr}}
+
+    section{background:var(--panel);padding:24px 26px;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:22px}
+    section h2{font-size:20px;margin-bottom:14px;color:var(--accent);display:flex;align-items:center;gap:6px}
+    section p.sub{color:var(--muted);margin-bottom:14px;font-size:14px}
+    .list{display:grid;gap:16px}
+
+    .card{padding:16px;border-radius:8px;background:var(--chip)}
+    .card .title{font-weight:600;margin-bottom:6px}
+    .meta{font-size:14px;color:var(--muted)}
+
+    .chip{padding:5px 12px;border-radius:6px;background:var(--chip);font-size:13px;color:var(--text)}
+    .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+
+    #projectList .card{background:var(--panel);box-shadow:var(--shadow)}
+    #projectList .title{color:var(--accent)}
+
+    footer{text-align:center;padding:28px 0;font-size:14px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      
+  <div>
+    <h1>Ekansh Mittal</h1>
+    <p class="subtitle">Cross-Platform Dev • BackEnd Developer • GenAI Engineer</p>
+  </div>
+  
+  <nav>
+        <button id="themeToggle" class="btn"> 🔄️Theme</button>
+        <button id="printBtn" class="btn">🖨️Print</button>
+        <a href="Ekansh-Resume.pdf" download class="btn">⬇️ Download</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- LEFT SIDE -->
+      <div class="left">
+        <section id="about">
+          <h2>👨‍💻 About Me</h2>
+          <p class="sub" id="aboutText"></p>
+          <div class="row" id="aboutChips"></div>
+        </section>
+
+        <!-- Core + Soft Skills moved above Projects -->
+        <section id="skills">
+          <h2>🛠 Core Skills</h2>
+          <div class="list" id="coreSkills"></div>
+        </section>
+
+        <section id="projects">
+          <h2>📂 Projects</h2>
+          <input id="search" placeholder="🔍 Search projects..." style="width:100%;padding:12px;border-radius:6px;margin-bottom:16px;border:1px solid #ccc" />
+          <div id="techTabs" class="row" style="margin-bottom:16px"></div>
+          <div id="projectList" class="list"></div>
+        </section>
+
+        
+        <section id="extraProjects">
+          <h2>📂 Other Projects</h2>
+          <div id="extraProjectList" class="list"></div>
+        </section>
+
+
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <aside class="right">
+        <section id="contact">
+          <h2>📫 Contact</h2>
+          <div class="list" id="contactList"></div>
+        </section>
+
+        
+        <section id="softSkills">
+          <h2>🤝 Soft Skills</h2>
+          <div class="row" id="softSkillsList"></div>
+        </section>
+
+        <section id="education">
+          <h2>🎓 Education</h2>
+          <div class="list" id="educationList"></div>
+        </section>
+
+        <section id="achievements">
+          <h2>🏆 Achievements</h2>
+          <ul class="list" id="achievementsList"></ul>
+        </section>
+
+        <section id="certifications">
+          <h2>📜 Certifications</h2>
+          <ul class="list" id="certList"></ul>
+        </section>
+        
+      </aside>
+    </main>
+
+    <footer>
+      © <span id="year"></span> Ekansh Mittal • Open to SDE / Mobile / Backend roles
+    </footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
