@@ -21,10 +21,12 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 // Render About
 document.getElementById("aboutText").textContent = DATA.about;
+const aboutChipsDiv = document.getElementById("aboutChips");
 DATA.chips.forEach(ch=>{
   let span=document.createElement("span");
   span.className="chip";
   span.textContent=ch;
+  aboutChipsDiv.appendChild(span);
 });
 
 // Render Achievements
@@ -97,6 +99,7 @@ DATA.contact.forEach(c=>{
     document.getElementById("contactList").appendChild(wrap);
   }
 });
+
 // Render Main Resume Projects
 const projectList = document.getElementById("projectList");
 DATA.projects.forEach(p=>{
@@ -124,6 +127,7 @@ DATA.extraProjects.forEach(p=>{
   `;
   extraList.appendChild(card);
 });
+
 // Simple search
 const search=document.getElementById("search");
 search.addEventListener("input",()=>{

@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,18 +7,8 @@
   <meta name="description" content="Resume of Ekansh Mittal — Flutter, Python, Java. Cross-platform apps, scalable backends, AI/ML integrations." />
   <meta name="theme-color" content="#f8fafc" />
   <style>
+    /* Light theme as default */
     :root{
-      --bg:#0b1020;
-      --panel:#1a1f36;
-      --muted:#94a3b8;
-      --text:#e2e8f0;
-      --accent:#7c3aed;
-      --accent-2:#22d3ee;
-      --chip:#2a2f4d;
-      --shadow:0 2px 8px rgba(0,0,0,0.4);
-      
-    }
-    [data-theme="dark"]{
       --bg:#f8fafc;
       --panel:#ffffff;
       --muted:#475569;
@@ -29,6 +18,18 @@
       --chip:#f1f5f9;
       --shadow:0 2px 6px rgba(0,0,0,0.08);
       --radius:12px;
+    }
+
+    /* Dark theme override */
+    [data-theme="dark"]{
+      --bg:#0b1020;
+      --panel:#1a1f36;
+      --muted:#94a3b8;
+      --text:#e2e8f0;
+      --accent:#7c3aed;
+      --accent-2:#22d3ee;
+      --chip:#2a2f4d;
+      --shadow:0 2px 8px rgba(0,0,0,0.4);
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
@@ -61,18 +62,21 @@
     #projectList .title{color:var(--accent)}
 
     footer{text-align:center;padding:28px 0;font-size:14px;color:var(--muted)}
+
+    /* Collapsible Extra Projects */
+    #extraProjects.collapsed #extraProjectList {display:none;}
+    #extraProjects button.toggle {margin-top:12px;padding:8px 14px;font-size:14px;border:none;border-radius:6px;background:var(--accent);color:white;cursor:pointer;}
+    #extraProjects button.toggle:hover{background:var(--accent-2);}
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      
-  <div>
-    <h1>Ekansh Mittal</h1>
-    <p class="subtitle">Cross-Platform Dev • BackEnd Developer • GenAI Engineer</p>
-  </div>
-  
-  <nav>
+      <div>
+        <h1>Ekansh Mittal</h1>
+        <p class="subtitle">Cross-Platform Dev • BackEnd Developer • GenAI Engineer</p>
+      </div>
+      <nav>
         <button id="themeToggle" class="btn"> 🔄️Theme</button>
         <button id="printBtn" class="btn">🖨️Print</button>
         <a href="Ekansh-Resume.pdf" download class="btn">⬇️ Download</a>
@@ -97,17 +101,15 @@
         <section id="projects">
           <h2>📂 Projects</h2>
           <input id="search" placeholder="🔍 Search projects..." style="width:100%;padding:12px;border-radius:6px;margin-bottom:16px;border:1px solid #ccc" />
-          <div id="techTabs" class="row" style="margin-bottom:16px"></div>
           <div id="projectList" class="list"></div>
         </section>
 
-        
-        <section id="extraProjects">
+        <!-- Collapsible Extra Projects -->
+        <section id="extraProjects" class="collapsed">
           <h2>📂 Other Projects</h2>
           <div id="extraProjectList" class="list"></div>
+          <button class="toggle" id="toggleExtra">Show More Projects ⬇️</button>
         </section>
-
-
       </div>
 
       <!-- RIGHT SIDE -->
@@ -117,7 +119,6 @@
           <div class="list" id="contactList"></div>
         </section>
 
-        
         <section id="softSkills">
           <h2>🤝 Soft Skills</h2>
           <div class="row" id="softSkillsList"></div>
@@ -137,7 +138,6 @@
           <h2>📜 Certifications</h2>
           <ul class="list" id="certList"></ul>
         </section>
-        
       </aside>
     </main>
 
@@ -148,5 +148,16 @@
 
   <script src="data.js"></script>
   <script src="main.js"></script>
+  <script>
+    // Toggle Extra Projects expand/collapse
+    const toggleBtn=document.getElementById("toggleExtra");
+    const extraSection=document.getElementById("extraProjects");
+    toggleBtn.addEventListener("click",()=>{
+      extraSection.classList.toggle("collapsed");
+      toggleBtn.textContent = extraSection.classList.contains("collapsed") 
+        ? "Show More Projects ⬇️" 
+        : "Hide Projects ⬆️";
+    });
+  </script>
 </body>
 </html>

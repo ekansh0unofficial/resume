@@ -1,5 +1,6 @@
 const DATA = {
-about: "Flutter & backend developer with hands-on experience in cross-platform apps, ML-powered tools, and real-time event systems. Skilled in Java, Python, Dart, and backend frameworks. Strong in API design, cloud deployment foundations, and delivering user-focused products.",
+about: "Innovative developer with expertise in cross-platform app development, scalable backend services, and AI-driven solutions. Proficient in Flutter, Python, and Java, with hands-on experience building ML-powered applications and real-time event management tools. Skilled in system design, API development, and strong foundations in DSA, OS, and networking. Passionate about delivering impactful, user-focused products.",
+
 chips: ["Flutter", "Python", "Java", "FastAPI", "Flask", "Firebase", "Node.js", "Android Native", "LangChain", "ML", "TensorFlow"],
 
 // Main Resume Projects (on LEFT)
@@ -7,28 +8,28 @@ projects: [
   {
     name:"MediMatch",
     blurb:"Flask/FastAPI backend deployed on Render. Detects common illnesses and suggests medicines.",
-    details:"• Built a scalable API that integrates ML models for illness detection.\n• Implemented drug–symptom mapping for faster suggestions.\n• Backend containerized and deployed on Render for public use.",
+    details:"• Developed a cross-platform mobile app that detects common illnesses and provides instant medicine suggestions.\n• Incorporated an ML-based matching algorithm and exposed functionality via Flask API endpoints.\n• Engineered a data cleaning module using Sentence Transformers to transform raw user input into structured keywords, boosting ML model accuracy.\n• Deployed the backend on Render.com for reliable public access.",
     tech:["Python","Flask","FastAPI","ML"],
     url:"https://github.com/ekansh0unofficial/med-api.git"
   },
   {
     name:"Advaita Auth",
     blurb:"QR-based registration & validation system for college fest.",
-    details:"• Built with Flutter (app) + FastAPI (backend).\n• Implemented role-based access for volunteers/admins.\n• Used QR codes for participant validation at entry points.\n• Scaled to handle 2000+ registrations during Advaita Fest.",
+    details:"• Built a QR-based registration and validation app for event access that utilized Flutter’s camera package to scan QR codes.\n• Integrated a FastAPI backend for pass registration and validation.\n• Implemented user-role categorization for Authenticator vs Validator access.\n• Scaled to handle 2,000–3,000 registrations during Advaita Fest for real-time access control.",
     tech:["Flutter","FastAPI","Android"],
     url:"https://github.com/ekansh0unofficial/ticket-validation.git"
   },
   {
-    name:"Moodify",
-    blurb:"Mood detection with FER model integrated into Flutter app.",
-    details:"• Integrated TensorFlow’s FER (Facial Emotion Recognition) pre-trained model.\n• Real-time emotion classification from camera feed.\n• Designed for interactive user experience.",
-    tech:["Flutter","TensorFlow"],
-    url:"https://github.com/ekansh0unofficial/moodify.git"
+    name:"Echo Mind",
+    blurb:"Voice Assistant with LangChain & FastAPI backend.",
+    details:"• Developed a Q&A Voice Assistant that accepts audio/text-based context input.\n• Implemented speech recognition, vector similarity search, and agentic processing with text-to-speech output.\n• Deployed the backend container with Docker on Microsoft Azure.",
+    tech:["Python","LangChain","FastAPI","Docker","Azure"],
+    url:"" // add GitHub if available
   },
   {
     name:"Maala",
     blurb:"Mindfulness & meditation mobile app.",
-    details:"• Developed in Flutter with Android native features.\n• Included guided breathing & relaxation activities.\n• Focused on UI/UX to encourage daily meditation.",
+    details:"• Created a lifestyle and meditation app to encourage mindfulness.\n• Designed a flexible Flutter UI with native Android integration using Method Channels.\n• Collected and applied feedback from 20+ closed beta testers to improve usability.\n• Deployed to production, achieving 20+ peak users and consistent daily store visits.\n• Published a Medium article sharing experience with Google Play Console usage.",
     tech:["Flutter","Android"],
     url:"https://github.com/ekansh0unofficial/Maala.git"
   }
@@ -37,10 +38,17 @@ projects: [
 // Extra Projects (not in resume, on RIGHT)
 extraProjects: [
   {
+    name:"Moodify",
+    blurb:"Mood detection with FER model integrated into Flutter app.",
+    details:"• Integrated TensorFlow’s FER (Facial Emotion Recognition) pre-trained model.\n• Real-time emotion classification from camera feed.\n• Designed for interactive user experience.",
+    tech:["Flutter","TensorFlow"],
+    url:"https://github.com/ekansh0unofficial/moodify.git"
+  },
+  {
     name:"QuizGame",
     blurb:"Quiz Game App (TestLine).",
-    details:"• Java + Android based interactive quiz app.\n• Features category selection, score tracking, and timer.",
-    tech:["Java","Android"],
+    details:"• Flutter based interactive quiz app.\n• Features category selection, score tracking, and timer.",
+    tech:["Flutter","Rest APIs"],
     url:"https://github.com/ekansh0unofficial/QuizGame-TestLine.git"
   },
   {
@@ -53,8 +61,8 @@ extraProjects: [
 ],
 
 achievements:[
-  {title:"LeetCode", meta:"Top 10% • 500+ problems • Rating 1746"},
-  {title:"CodeChef", meta:"4-star • Rating 1850+ • Global rank ~4610"},
+  {title:"LeetCode", meta:"Top 10% • 575+ problems • Rating 1790"},
+  {title:"CodeChef", meta:"4-star • Rating 1900+ • Global rank ~3370"},
   {title:"Leadership", meta:"PR & Marketing Lead — TARS Society"},
   {title:"Placement Coordinator", meta:"Organized 10+ recruitment drives for 2025 batch"}
 ],
@@ -67,9 +75,9 @@ education:[
 
 coreSkills:{
   languages:["Dart","Java","C++","Python","JavaScript","Kotlin"],
-  frameworks:["Flutter","FastAPI","Flask","Node.js"],
-  tools:["Firebase","Git","Render","Android Studio","VS Code"],
-  concepts:["OOP","DSA","REST APIs","System Design","ML Integrations"]
+  frameworks:["Flutter","FastAPI","Flask","Node.js","Spring Framework","JDBC"],
+  tools:["Firebase","Git","GitHub","Render","Android Studio","VS Code","Maven","Gradle"],
+  concepts:["OOP","DSA","REST APIs","System Design","ML Integrations","Design Patterns","Software Engineering Principles"]
 },
 
 softSkills:[
