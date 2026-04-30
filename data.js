@@ -1,86 +1,70 @@
 const DATA = {
-about: "Innovative developer with expertise in cross-platform app development, scalable backend services, and AI-driven solutions. Proficient in Flutter, Python, and Java, with hands-on experience building ML-powered applications and real-time event management tools. Skilled in system design, API development, and strong foundations in DSA, OS, and networking. Passionate about delivering impactful, user-focused products.",
+about: "SWE undergrad building backend systems, distributed services, and production apps — with a focus on clean architecture, observability, and real-world scale.",
 
-chips: ["Flutter", "Python", "Java", "FastAPI", "Flask", "Firebase", "Node.js", "Android Native", "LangChain", "ML", "TensorFlow"],
+chips: ["Java", "Python", "Dart", "JavaScript", "Spring Framework", "Flutter", "FastAPI", "Docker", "Azure", "Firebase"],
 
-// Main Resume Projects (on LEFT)
+experience: [
+  {
+    role: "AI Engineering Intern (Ongoing)",
+    company: "AI Ordinate",
+    points: [
+      "Led full-stack app integrating LLMs, image generation & TTS — shipped in Agile sprints.",
+      "Built Python pipelines processing 60L+ files with structured logging; fine-tuned BERT classifier to F1 0.75+."
+    ]
+  }
+],
+
 projects: [
   {
-    name:"MediMatch",
-    blurb:"Flask/FastAPI backend deployed on Render. Detects common illnesses and suggests medicines.",
-    details:"• Developed a cross-platform mobile app that detects common illnesses and provides instant medicine suggestions.\n• Incorporated an ML-based matching algorithm and exposed functionality via Flask API endpoints.\n• Engineered a data cleaning module using Sentence Transformers to transform raw user input into structured keywords, boosting ML model accuracy.\n• Deployed the backend on Render.com for reliable public access.",
-    tech:["Python","Flask","FastAPI","ML"],
-    url:"https://github.com/ekansh0unofficial/med-api.git"
+    name: "Intelli-Relief",
+    blurb: "Disaster monitoring platform — real-time signals, event-driven architecture, AI-powered insights.",
+    details: "• Multi-tiered full-stack system with independently deployable frontend, backend, and inference services.\n• Event-driven architecture with Sentence Transformers for post-disaster audit trails.",
+    tech: ["React", "FastAPI", "Docker", "Nginx", "Sentence Transformers"],
+    url: ""
   },
   {
-    name:"Advaita Auth",
-    blurb:"QR-based registration & validation system for college fest.",
-    details:"• Built a QR-based registration and validation app for event access that utilized Flutter’s camera package to scan QR codes.\n• Integrated a FastAPI backend for pass registration and validation.\n• Implemented user-role categorization for Authenticator vs Validator access.\n• Scaled to handle 2,000–3,000 registrations during Advaita Fest for real-time access control.",
-    tech:["Flutter","FastAPI","Android"],
-    url:"https://github.com/ekansh0unofficial/ticket-validation.git"
+    name: "MediMatch",
+    blurb: "AI-powered illness detection app with ML backend deployed to production.",
+    details: "• Sentence Transformers pipeline converts raw symptoms into structured keywords, boosting model accuracy.\n• Flask/FastAPI backend deployed on Render with real-time medicine suggestions.",
+    tech: ["Python", "FastAPI", "ML", "Sentence Transformers"],
+    url: "https://github.com/ekansh0unofficial/med-api.git"
   },
   {
-    name:"Echo Mind",
-    blurb:"Voice Assistant with LangChain & FastAPI backend.",
-    details:"• Developed a Q&A Voice Assistant that accepts audio/text-based context input.\n• Implemented speech recognition, vector similarity search, and agentic processing with text-to-speech output.\n• Deployed the backend container with Docker on Microsoft Azure.",
-    tech:["Python","LangChain","FastAPI","Docker","Azure"],
-    url:"" // add GitHub if available
+    name: "Maala",
+    blurb: "Meditation app — 100+ installs, consistent daily users, live on Play Store.",
+    details: "• Responsive Flutter UI with native Android Method Channels and OOP-based state management.\n• Shipped to production; monitored stability and iterated on feedback from 20+ beta testers.",
+    tech: ["Flutter", "Dart", "Android Native"],
+    url: "https://github.com/ekansh0unofficial/Maala.git"
   },
   {
-    name:"Maala",
-    blurb:"Mindfulness & meditation mobile app.",
-    details:"• Created a lifestyle and meditation app to encourage mindfulness.\n• Designed a flexible Flutter UI with native Android integration using Method Channels.\n• Collected and applied feedback from 20+ closed beta testers to improve usability.\n• Deployed to production, achieving 20+ peak users and consistent daily store visits.\n• Published a Medium article sharing experience with Google Play Console usage.",
-    tech:["Flutter","Android"],
-    url:"https://github.com/ekansh0unofficial/Maala.git"
+    name: "Advaita Auth",
+    blurb: "QR authentication system used live at a college festival with 2,000+ attendees.",
+    details: "• RBAC system for Validator/Authenticator roles with real-time QR scanning via Flutter camera.\n• Deployed and monitored in a high-traffic live environment.",
+    tech: ["Flutter", "FastAPI", "Android Native"],
+    url: "https://github.com/ekansh0unofficial/ticket-validation.git"
   }
 ],
 
-// Extra Projects (not in resume, on RIGHT)
-extraProjects: [
-  {
-    name:"Moodify",
-    blurb:"Mood detection with FER model integrated into Flutter app.",
-    details:"• Integrated TensorFlow’s FER (Facial Emotion Recognition) pre-trained model.\n• Real-time emotion classification from camera feed.\n• Designed for interactive user experience.",
-    tech:["Flutter","TensorFlow"],
-    url:"https://github.com/ekansh0unofficial/moodify.git"
-  },
-  {
-    name:"QuizGame",
-    blurb:"Quiz Game App (TestLine).",
-    details:"• Flutter based interactive quiz app.\n• Features category selection, score tracking, and timer.",
-    tech:["Flutter","Rest APIs"],
-    url:"https://github.com/ekansh0unofficial/QuizGame-TestLine.git"
-  },
-  {
-    name:"Basic Kotlin Projects",
-    blurb:"Foundational Kotlin/Android mini-projects.",
-    details:"• Hands-on practice apps covering layouts, forms, and navigation.\n• Built multiple learning-oriented Android mini projects.",
-    tech:["Kotlin","Android"],
-    url:"https://github.com/ekansh0unofficial/Android-Projects.git"
-  }
+achievements: [
+  {title: "LeetCode Knight", meta: "680+ solved · Rating 1900+ · Top 5%"},
+  {title: "CodeChef 4★", meta: "Rating 1800+ · Global rank ~3370"},
+  {title: "Apache Checkstyle", meta: "Open source contributor — production CI tool"},
+  {title: "TARS Society", meta: "PR & Marketing Lead"}
 ],
 
-achievements:[
-  {title:"LeetCode", meta:"Top 10% • 575+ problems • Rating 1790"},
-  {title:"CodeChef", meta:"4-star • Rating 1900+ • Global rank ~3370"},
-  {title:"Leadership", meta:"PR & Marketing Lead — TARS Society"},
-  {title:"Placement Coordinator", meta:"Organized 10+ recruitment drives for 2025 batch"}
+education: [
+  {title: "IIIT Bhubaneswar", meta: "B.Tech IT · 2022–26 · CGPA 7.92"},
+  {title: "St. Fateh Singh Convent", meta: "12th CBSE · 85% · JEE AIR 36,700"},
+  {title: "St. Xavier High School", meta: "10th CBSE · 89%"}
 ],
 
-education:[
-  {title:"IIIT Bhubaneswar — B.Tech, IT", meta:"2022–2026 • CGPA (6th Sem): 7.92/10"},
-  {title:"St. Fateh Singh Convent School", meta:"12th (CBSE) — 85% • JEE Mains AIR 36,700"},
-  {title:"St. Xavier High School, Rampura Phul", meta:"10th (CBSE) — 89%"}
-],
-
-coreSkills:{
-  languages:["Dart","Java","C++","Python","JavaScript","Kotlin"],
-  frameworks:["Flutter","FastAPI","Flask","Node.js","Spring Framework","JDBC"],
-  tools:["Firebase","Git","GitHub","Render","Android Studio","VS Code","Maven","Gradle"],
-  concepts:["OOP","DSA","REST APIs","System Design","ML Integrations","Design Patterns","Software Engineering Principles"]
+coreSkills: {
+  languages: ["Java", "Python", "Dart", "JavaScript", "C++"],
+  frameworks: ["Spring", "Flutter", "FastAPI", "Android SDK", "Firebase"],
+  infra: ["Docker", "Nginx", "Azure", "Git", "Maven"]
 },
 
-softSkills:[
+softSkills: [
   "Problem Solving",
   "Team Collaboration",
   "Leadership & PR",
@@ -88,21 +72,21 @@ softSkills:[
   "Communication"
 ],
 
-certs:[
-  {title:"Java — GeeksforGeeks", meta:"OOP, Collections, Exceptions, DSA"},
-  {title:"Software Architecture — CodeSignal", meta:"SOLID, Clean Architecture, System Design, Cloud intro"}
+certs: [
+  {title: "Java · GeeksforGeeks", meta: "OOP · Collections · DSA", url: "https://drive.google.com/file/d/1z7d1uKSbUV213u_hvm7Jz4UH-Af7iLJJ/view?usp=drive_link"},
+  {title: "Software Architecture · CodeSignal", meta: "SOLID · Clean Arch · System Design", url: "https://drive.google.com/file/d/1KK5jGBcIy1LA-05xcivHf_PVt7GSB7KI/view?usp=drive_link"}
 ],
 
-contact:[
-  {title:"Email", meta:"ekanshmittal04@gmail.com"},
-  {title:"Phone", meta:"+91 94173 28942"},
-  {links:[
-    {name:"LinkedIn", url:"https://www.linkedin.com/in/ekansh-mittal-ba87a2247/"},
-    {name:"GitHub", url:"https://github.com/ekansh0unofficial"},
-    {name:"LeetCode", url:"https://leetcode.com/u/b422026/"},
-    {name:"CodeChef", url:"https://www.codechef.com/users/noted_awe_75"},
-    {name:"Medium", url:"https://medium.com/@ekanshmittal04"},
-    {name:"X / Twitter", url:"https://x.com/mitt1126"}
+contact: [
+  {title: "Email", meta: "ekanshmittal04@gmail.com"},
+  {title: "Phone", meta: "+91 94173 28942"},
+  {links: [
+    {name: "LinkedIn", url: "https://www.linkedin.com/in/ekansh-mittal-ba87a2247/"},
+    {name: "GitHub", url: "https://github.com/ekansh0unofficial"},
+    {name: "LeetCode", url: "https://leetcode.com/u/b422026/"},
+    {name: "CodeChef", url: "https://www.codechef.com/users/noted_awe_75"},
+    {name: "Medium", url: "https://medium.com/@ekanshmittal04"},
+    {name: "X / Twitter", url: "https://x.com/mitt1126"}
   ]}
 ]
 };
