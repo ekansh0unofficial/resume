@@ -542,8 +542,6 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
 </div><!-- .wrap -->
 
 <script src="data.js"></script>
-<script src="model-data.js"></script>
-<script src="texture-data.js"></script>
 <script>
 /* ═══════════════════════════════════════════════════════
    1. PARTICLE CANVAS
@@ -1215,85 +1213,112 @@ window.addEventListener("mousemove",e=>{window._byteCursorX=e.clientX;window._by
 {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.168.0/examples/jsm/"}}
 </script>
 <script type="module">
-import * as THREE from 'three';
-import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
-
-const canvas = document.getElementById("byte");
-if (!canvas) throw new Error("No #byte canvas");
-
-const W = 148, H = 185;
-const DPR = Math.min(window.devicePixelRatio, 2);
-canvas.width  = W * DPR;
-canvas.height = H * DPR;
-
-/* ── Renderer ── */
-const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(DPR);
-renderer.setSize(W, H, false);
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.6;
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-renderer.setClearColor(0x000000, 0);
-
-/* ── Scene + Camera ── */
-const scene  = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(36, W / H, 0.01, 100);
-camera.position.set(0, 1.4, 5.2);
-camera.lookAt(0, 0.9, 0);
-
-/* ── Environment map (gradient canvas — no HDR file needed) ── */
-const pmrem = new THREE.PMREMGenerator(renderer);
-pmrem.compileEquirectangularShader();
-const envCvs = Object.assign(document.createElement('canvas'), { width: 256, height: 128 });
-const ectx   = envCvs.getContext('2d');
-const grd    = ectx.createLinearGradient(0, 0, 0, 128);
-grd.addColorStop(0,   '#1a0b38');
-grd.addColorStop(0.5, '#0d1533');
-grd.addColorStop(1,   '#050b1a');
-ectx.fillStyle = grd; ectx.fillRect(0, 0, 256, 128);
-const envTex = new THREE.CanvasTexture(envCvs);
-envTex.mapping = THREE.EquirectangularReflectionMapping;
-scene.environment = pmrem.fromEquirectangular(envTex).texture;
-pmrem.dispose();
-
-/* ── Lighting ── */
-scene.add(new THREE.AmbientLight(0xb4a0ff, 0.55));
-const key = new THREE.DirectionalLight(0xd0c0ff, 3.0);
-key.position.set(-1.5, 3.5, 2.5);
-key.castShadow = true;
-key.shadow.mapSize.set(512, 512);
-key.shadow.camera.near = 0.5; key.shadow.camera.far = 20;
-scene.add(key);
-const fill = new THREE.DirectionalLight(0x22d3ee, 1.4);
-fill.position.set(2.5, 1.0, 2.0); scene.add(fill);
-const rim  = new THREE.DirectionalLight(0x7c3aed, 0.8);
-rim.position.set(0, 0.5, -3.5); scene.add(rim);
-const bot  = new THREE.PointLight(0x06b6d4, 0.6, 8);
-bot.position.set(0, -0.5, 1); scene.add(bot);
-
-
-/* ── Model setup ── */
-let model = null, mixer = null;
-let targetRotY = 0, curRotY = 0;
 const IS_FILE = window.location.protocol === 'file:';
+const onIdle = cb => {
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(cb, { timeout: 1500 });
+    return;
+  }
+  setTimeout(cb, 0);
+};
 
-function applyMaterial(fbx, textured) {
-  if (textured) {
-    /* Full PBR with texture maps (HTTP mode) */
-    const tl   = new THREE.TextureLoader();
-    const diff = tl.load('./mascot/texture_diffuse.png',  t => { t.colorSpace = THREE.SRGBColorSpace; });
-    const nrm  = tl.load('./mascot/texture_normal.png');
-    const rgh  = tl.load('./mascot/texture_roughness.png');
-    const mtl2 = tl.load('./mascot/texture_metallic.png');
-    const mat  = new THREE.MeshStandardMaterial({
-      map: diff, normalMap: nrm, roughnessMap: rgh, metalnessMap: mtl2,
-      roughness: 0.42, metalness: 0.32, envMapIntensity: 1.4,
-    });
-    fbx.traverse(c => { if (c.isMesh) { c.castShadow = true; c.material = mat; } });
-  } else {
-    /* file:// mode — load diffuse from embedded base64, skip other maps */
+function loadScript(src) {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = src;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+}
+
+async function initByte() {
+  const canvas = document.getElementById("byte");
+  if (!canvas) return;
+
+  if (IS_FILE) {
+    await Promise.all([
+      loadScript('./model-data.js'),
+      loadScript('./texture-data.js'),
+    ]);
+  }
+
+  const [THREE, { FBXLoader }] = await Promise.all([
+    import('three'),
+    import('three/addons/loaders/FBXLoader.js'),
+  ]);
+
+  const W = 148, H = 185;
+  const DPR = Math.min(window.devicePixelRatio, 2);
+  canvas.width  = W * DPR;
+  canvas.height = H * DPR;
+
+  /* ── Renderer ── */
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(DPR);
+  renderer.setSize(W, H, false);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.6;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.setClearColor(0x000000, 0);
+
+  /* ── Scene + Camera ── */
+  const scene  = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(36, W / H, 0.01, 100);
+  camera.position.set(0, 1.4, 5.2);
+  camera.lookAt(0, 0.9, 0);
+
+  /* ── Environment map (gradient canvas — no HDR file needed) ── */
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  pmrem.compileEquirectangularShader();
+  const envCvs = Object.assign(document.createElement('canvas'), { width: 256, height: 128 });
+  const ectx   = envCvs.getContext('2d');
+  const grd    = ectx.createLinearGradient(0, 0, 0, 128);
+  grd.addColorStop(0,   '#1a0b38');
+  grd.addColorStop(0.5, '#0d1533');
+  grd.addColorStop(1,   '#050b1a');
+  ectx.fillStyle = grd; ectx.fillRect(0, 0, 256, 128);
+  const envTex = new THREE.CanvasTexture(envCvs);
+  envTex.mapping = THREE.EquirectangularReflectionMapping;
+  scene.environment = pmrem.fromEquirectangular(envTex).texture;
+  pmrem.dispose();
+
+  /* ── Lighting ── */
+  scene.add(new THREE.AmbientLight(0xb4a0ff, 0.55));
+  const key = new THREE.DirectionalLight(0xd0c0ff, 3.0);
+  key.position.set(-1.5, 3.5, 2.5);
+  key.castShadow = true;
+  key.shadow.mapSize.set(512, 512);
+  key.shadow.camera.near = 0.5; key.shadow.camera.far = 20;
+  scene.add(key);
+  const fill = new THREE.DirectionalLight(0x22d3ee, 1.4);
+  fill.position.set(2.5, 1.0, 2.0); scene.add(fill);
+  const rim  = new THREE.DirectionalLight(0x7c3aed, 0.8);
+  rim.position.set(0, 0.5, -3.5); scene.add(rim);
+  const bot  = new THREE.PointLight(0x06b6d4, 0.6, 8);
+  bot.position.set(0, -0.5, 1); scene.add(bot);
+
+  /* ── Model setup ── */
+  let model = null, mixer = null;
+  let targetRotY = 0, curRotY = 0;
+
+  function applyMaterial(fbx, textured) {
+    if (textured) {
+      const tl   = new THREE.TextureLoader();
+      const diff = tl.load('./mascot/texture_diffuse.png',  t => { t.colorSpace = THREE.SRGBColorSpace; });
+      const nrm  = tl.load('./mascot/texture_normal.png');
+      const rgh  = tl.load('./mascot/texture_roughness.png');
+      const mtl2 = tl.load('./mascot/texture_metallic.png');
+      const mat  = new THREE.MeshStandardMaterial({
+        map: diff, normalMap: nrm, roughnessMap: rgh, metalnessMap: mtl2,
+        roughness: 0.42, metalness: 0.32, envMapIntensity: 1.4,
+      });
+      fbx.traverse(c => { if (c.isMesh) { c.castShadow = true; c.material = mat; } });
+      return;
+    }
+
     const mat = new THREE.MeshStandardMaterial({
       roughness: 0.55, metalness: 0.2, envMapIntensity: 1.0,
     });
@@ -1311,56 +1336,59 @@ function applyMaterial(fbx, textured) {
       img.src = 'data:image/png;base64,' + window._diffB64;
     }
   }
-}
 
-function onFBXLoaded(fbx) {
-  const box  = new THREE.Box3().setFromObject(fbx);
-  const size = box.getSize(new THREE.Vector3());
-  fbx.scale.setScalar(2.4 / Math.max(size.x, size.y, size.z));
-  box.setFromObject(fbx);
-  fbx.position.sub(box.getCenter(new THREE.Vector3()));
-  box.setFromObject(fbx);
-  fbx.position.y -= box.min.y;
+  function onFBXLoaded(fbx) {
+    const box  = new THREE.Box3().setFromObject(fbx);
+    const size = box.getSize(new THREE.Vector3());
+    fbx.scale.setScalar(2.4 / Math.max(size.x, size.y, size.z));
+    box.setFromObject(fbx);
+    fbx.position.sub(box.getCenter(new THREE.Vector3()));
+    box.setFromObject(fbx);
+    fbx.position.y -= box.min.y;
 
-  applyMaterial(fbx, !IS_FILE);
+    applyMaterial(fbx, !IS_FILE);
 
-  if (fbx.animations?.length) {
-    mixer = new THREE.AnimationMixer(fbx);
-    mixer.clipAction(fbx.animations[0]).play();
+    if (fbx.animations?.length) {
+      mixer = new THREE.AnimationMixer(fbx);
+      mixer.clipAction(fbx.animations[0]).play();
+    }
+    model = fbx;
+    scene.add(fbx);
   }
-  model = fbx;
-  scene.add(fbx);
-}
 
-if (IS_FILE && window._fbxB64) {
-  /* Decode base64 → ArrayBuffer → parse without fetch */
-  const b64 = window._fbxB64;
-  const bin = atob(b64);
-  const buf = new ArrayBuffer(bin.length);
-  const u8  = new Uint8Array(buf);
-  for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
-  try { onFBXLoaded(new FBXLoader().parse(buf, '')); }
-  catch(e) { console.error('FBX parse:', e); }
-} else {
-  new FBXLoader().load('./mascot/base.fbx', onFBXLoaded,
-    undefined, err => console.error('FBX load:', err));
-}
-
-/* ── Render loop ── */
-const clock = new THREE.Clock();
-(function tick() {
-  requestAnimationFrame(tick);
-  const dt = clock.getDelta();
-  if (model) {
-    const r  = canvas.getBoundingClientRect();
-    const cx = r.left + r.width / 2;
-    targetRotY = Math.atan2((window._byteCursorX || cx) - cx, 500) * 0.55;
-    curRotY   += (targetRotY - curRotY) * 0.07;
-    model.rotation.y = curRotY;
+  if (IS_FILE && window._fbxB64) {
+    const b64 = window._fbxB64;
+    const bin = atob(b64);
+    const buf = new ArrayBuffer(bin.length);
+    const u8  = new Uint8Array(buf);
+    for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+    try { onFBXLoaded(new FBXLoader().parse(buf, '')); }
+    catch (e) { console.error('FBX parse:', e); }
+  } else {
+    new FBXLoader().load('./mascot/base.fbx', onFBXLoaded,
+      undefined, err => console.error('FBX load:', err));
   }
-  if (mixer) mixer.update(dt);
-  renderer.render(scene, camera);
-})();
+
+  /* ── Render loop ── */
+  const clock = new THREE.Clock();
+  (function tick() {
+    requestAnimationFrame(tick);
+    const dt = clock.getDelta();
+    if (model) {
+      const r  = canvas.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      targetRotY = Math.atan2((window._byteCursorX || cx) - cx, 500) * 0.55;
+      curRotY   += (targetRotY - curRotY) * 0.07;
+      model.rotation.y = curRotY;
+    }
+    if (mixer) mixer.update(dt);
+    renderer.render(scene, camera);
+  })();
+}
+
+window.addEventListener('load', () => onIdle(() => {
+  initByte().catch(err => console.error('Byte init:', err));
+}), { once: true });
 </script>
 </body>
 </html>
