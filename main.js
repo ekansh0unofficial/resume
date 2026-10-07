@@ -7,7 +7,7 @@
   const canvas = document.getElementById("pc");
   const ctx    = canvas.getContext("2d");
 
-  const COLORS  = ["rgba(99,102,241,", "rgba(139,92,246,", "rgba(6,182,212,"];
+  const COLORS  = ["rgba(124,58,237,", "rgba(109,40,217,", "rgba(6,182,212,"];
   const COUNT   = 60;
   const CONNECT = 110;
   const REPEL   = 90;
@@ -108,12 +108,7 @@
   tick();
 })();
 
-/* ── 2. Scroll Progress Bar ─────────────────────────────── */
-const progressBar = document.getElementById("progress");
-window.addEventListener("scroll", () => {
-  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
-  progressBar.style.width = Math.min(pct, 100) + "%";
-}, { passive: true });
+/* ── 2. Scroll Progress Bar — handled by CSS scroll-driven animation ─── */
 
 /* ── 3. Cursor Glow (global spotlight) ─────────────────── */
 const cglow = document.getElementById("cglow");
@@ -196,7 +191,7 @@ document.querySelectorAll(".reveal").forEach((el, i) => {
 document.getElementById("heroBio").textContent = DATA.about;
 DATA.chips.forEach(ch => {
   const s = document.createElement("span");
-  s.className   = "chip chip-violet";
+  s.className   = "chip chip-plain";
   s.textContent = ch;
   document.getElementById("aboutChips").appendChild(s);
 });
@@ -238,10 +233,14 @@ DATA.experience.forEach(exp => {
   const div = document.createElement("div");
   div.className = "exp-entry";
   const bullets = exp.points.map(p => `<li>${p}</li>`).join("");
+  const techRow = exp.tech ? `<div class="chips-row" style="margin-bottom:12px">${exp.tech.map(t=>`<span class="chip chip-plain">${t}</span>`).join("")}</div>` : "";
+  const subPeriod = exp.subPeriod ? `<div class="exp-sub-period">${exp.subPeriod}</div>` : "";
   div.innerHTML = `
     <div class="exp-dot"></div>
     <div class="exp-role">${exp.role}</div>
-    <div class="exp-company">${exp.company}</div>
+    <div class="exp-company">${exp.company}${exp.period ? ` <span class="exp-period">· ${exp.period}</span>` : ""}</div>
+    ${subPeriod}
+    ${techRow}
     <ul class="exp-bullets">${bullets}</ul>
   `;
   expList.appendChild(div);
@@ -249,7 +248,8 @@ DATA.experience.forEach(exp => {
 
 /* ── 13. Skills ─────────────────────────────────────────── */
 const labelMap = {
-  languages:"Languages", frameworks:"Frameworks", infra:"Infra & Tools"
+  languages:"Languages", frameworks:"Frameworks", databases:"Databases",
+  cloud:"Cloud & DevOps", tools:"Tools"
 };
 const chipColors = ["chip-violet","chip-cyan","chip-amber","chip-rose","chip-green","chip-plain"];
 const skillsDiv  = document.getElementById("coreSkills");
@@ -371,6 +371,29 @@ function renderProjects(list, containerId) {
   });
 }
 renderProjects(DATA.projects, "projectList");
+
+/* ── 21. Other / Smaller Projects ──────────────────────── */
+(function renderOtherProjects() {
+  const container = document.getElementById("otherProjectList");
+  if (!container || !DATA.otherProjects || !DATA.otherProjects.length) return;
+  DATA.otherProjects.forEach(p => {
+    const card = document.createElement("div");
+    card.className = "mini-proj-card";
+    const linkHtml = p.url
+      ? `<a class="mini-proj-link" href="${p.url}" target="_blank" rel="noopener">↗</a>`
+      : "";
+    const techHtml = p.tech.map(t => `<span class="chip chip-dim">${t}</span>`).join("");
+    card.innerHTML = `
+      <div class="mini-proj-header">
+        <span class="mini-proj-name">${p.name}</span>
+        ${linkHtml}
+      </div>
+      <div class="mini-proj-blurb">${p.blurb}</div>
+      <div class="mini-proj-tech">${techHtml}</div>
+    `;
+    container.appendChild(card);
+  });
+})();
 
 /* ── 22. GitHub Infographics ────────────────────────────── */
 const LANG_COLORS = ['#6366f1','#8b5cf6','#06b6d4','#10b981','#f59e0b','#f43f5e','#a78bfa'];
@@ -509,8 +532,8 @@ function renderStaticGitHub(ghGrid) {
       <div class="gh-stat"><div class="gh-stat-n">11</div><div class="gh-stat-l">Followers</div></div>
     </div>
     <div>
-      <a class="gh-badge" href="https://github.com/ekansh0unofficial" target="_blank" rel="noopener">👤 Personal · ekansh0unofficial</a>
-      <a class="gh-badge" href="https://github.com/ekansh-aio" target="_blank" rel="noopener">💼 Work · ekansh-aio</a>
+      <a class="gh-badge" href="https://github.com/ekansh0unofficial" target="_blank" rel="noopener">Personal · ekansh0unofficial</a>
+      <a class="gh-badge" href="https://github.com/ekansh-aio" target="_blank" rel="noopener">Work · ekansh-aio</a>
     </div>`;
 
   const card2 = buildDonutCard(staticEntries, staticTotal);
@@ -560,8 +583,8 @@ async function loadGitHub() {
       <div class="gh-stat"><div class="gh-stat-n">${personalUser.followers || 0}</div><div class="gh-stat-l">Followers</div></div>
     </div>
     <div>
-      <a class="gh-badge" href="https://github.com/ekansh0unofficial" target="_blank" rel="noopener">👤 Personal · ekansh0unofficial</a>
-      <a class="gh-badge" href="https://github.com/ekansh-aio" target="_blank" rel="noopener">💼 Work · ekansh-aio</a>
+      <a class="gh-badge" href="https://github.com/ekansh0unofficial" target="_blank" rel="noopener">Personal · ekansh0unofficial</a>
+      <a class="gh-badge" href="https://github.com/ekansh-aio" target="_blank" rel="noopener">Work · ekansh-aio</a>
     </div>`;
 
   const card2 = buildDonutCard(langEntries, langTotal);

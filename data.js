@@ -1,80 +1,99 @@
 const DATA = {
-about: "SWE undergrad building backend systems, distributed services, and production apps — with a focus on clean architecture, observability, and real-world scale.",
+about: "Backend & AI Engineer building production systems, data pipelines at scale, and cross-platform apps — working across Azure, AWS, and distributed architectures with a focus on reliability and real-world impact.",
 
-chips: ["Java", "Python", "Dart", "JavaScript", "Spring Framework", "Flutter", "FastAPI", "Docker", "Azure", "Firebase"],
+chips: ["Java", "Python", "Spring Boot", "FastAPI", "React", "Flutter", "PostgreSQL", "Elastic Search", "Docker", "Azure", "AWS"],
 
 experience: [
   {
-    role: "AI Engineering Intern (Ongoing)",
+    role: "Backend & AI Engineer",
     company: "AI Ordinate",
+    period: "Dec 2025 – Present",
+    subPeriod: "Intern (Dec 2025 – Jun 2026) · Full-Time (Jun 2026 – Present)",
+    tech: ["ADLS", "Elastic Search", "Python", "Docker", "React", "FastAPI", "ElevenLabs"],
     points: [
-      "Led full-stack app integrating LLMs, image generation & TTS — shipped in Agile sprints.",
-      "Built Python pipelines processing 60L+ files with structured logging; fine-tuned BERT classifier to F1 0.75+."
+      "Led development of a production-ready full-stack application for a Tier-1 pharmaceutical client, integrating LLMs, image generation, and text-to-speech capabilities.",
+      "Served as primary engineer for production deployment of a regression-based ML model for a fast-growing maritime startup, focusing on model reliability and evaluation metrics.",
+      "Built fault-tolerant, resumable document-processing pipelines transforming 14M+ unstructured documents into searchable digital assets using self-hosted Elastic Search.",
+      "Worked across Azure and AWS environments to maintain and deploy SaaS applications."
     ]
   }
 ],
 
 projects: [
   {
+    name: "Snow Runtime",
+    blurb: "Developer platform integrating VS Code with Snowflake for data engineering workflows.",
+    details: "• Python runtime powering both CLI and editor integrations with secure Snowflake connection management.\n• Built on Clean Architecture and SOLID principles — extensible for authentication, history, and future developer tooling.",
+    tech: ["Python", "Snowflake", "CLI"],
+    url: ""
+  },
+  {
     name: "Intelli-Relief",
     blurb: "Disaster monitoring platform — real-time signals, event-driven architecture, AI-powered insights.",
-    details: "• Multi-tiered full-stack system with independently deployable frontend, backend, and inference services.\n• Event-driven architecture with Sentence Transformers for post-disaster audit trails.",
+    details: "• Full-stack app integrating OpenWeather and seismic APIs for real-time disaster tracking and response workflows.\n• Event-driven architecture with containerized Docker + Nginx deployment and Sentence Transformers for semantic audit trails.",
     tech: ["React", "FastAPI", "Docker", "Nginx", "Sentence Transformers"],
     url: ""
   },
   {
-    name: "MediMatch",
-    blurb: "AI-powered illness detection app with ML backend deployed to production.",
-    details: "• Sentence Transformers pipeline converts raw symptoms into structured keywords, boosting model accuracy.\n• Flask/FastAPI backend deployed on Render with real-time medicine suggestions.",
-    tech: ["Python", "FastAPI", "ML", "Sentence Transformers"],
-    url: "https://github.com/ekansh0unofficial/med-api.git"
-  },
-  {
     name: "Maala",
     blurb: "Meditation app — 100+ installs, consistent daily users, live on Play Store.",
-    details: "• Responsive Flutter UI with native Android Method Channels and OOP-based state management.\n• Shipped to production; monitored stability and iterated on feedback from 20+ beta testers.",
+    details: "• Flutter UI with native Android Method Channels and scalable state management for real-time updates.\n• Shipped to production with modular component architecture; monitored stability with 20+ beta testers.",
     tech: ["Flutter", "Dart", "Android Native"],
     url: "https://github.com/ekansh0unofficial/Maala.git"
+  }
+],
+
+otherProjects: [
+  {
+    name: "Legal Doc Pipeline",
+    blurb: "Processing pipeline for legal documents — multi-strategy chunking, NLP cleaning, and LLM rhetorical role classification for RAG systems.",
+    tech: ["Python", "FastAPI", "Embeddings", "NLP"],
+    url: "https://github.com/ekansh0unofficial/semantic_chunker"
   },
   {
-    name: "Advaita Auth",
-    blurb: "QR authentication system used live at a college festival with 2,000+ attendees.",
-    details: "• RBAC system for Validator/Authenticator roles with real-time QR scanning via Flutter camera.\n• Deployed and monitored in a high-traffic live environment.",
-    tech: ["Flutter", "FastAPI", "Android Native"],
-    url: "https://github.com/ekansh0unofficial/ticket-validation.git"
+    name: "Meeting Assistant",
+    blurb: "Voice bot with LangChain + TTS — accepts PDF or audio context and answers queries conversationally with semantic search.",
+    tech: ["Python", "LangChain", "FastAPI", "Docker"],
+    url: "https://github.com/ekansh0unofficial/meeting-assistent"
+  },
+  {
+    name: "SIH Backend",
+    blurb: "REST API backend built for Smart India Hackathon — TypeScript/Node.js with web scrapers and structured routing.",
+    tech: ["TypeScript", "Node.js", "Express"],
+    url: "https://github.com/ekansh0unofficial/SIH-Backend"
+  },
+  {
+    name: "Med API",
+    blurb: "Symptom-based disease prediction API serving diet, medication, and precaution recommendations from structured medical datasets.",
+    tech: ["Python", "FastAPI", "ML"],
+    url: "https://github.com/ekansh0unofficial/med-api"
   }
 ],
 
 achievements: [
-  {title: "LeetCode Knight", meta: "680+ solved · Rating 1900+ · Top 5%"},
+  {title: "LeetCode Knight", meta: "700+ solved · 1000+ submissions · Rating 1900+ · Top 5%"},
   {title: "CodeChef 4★", meta: "Rating 1800+ · Global rank ~3370"},
   {title: "Apache Checkstyle", meta: "Open source contributor — production CI tool"},
-  {title: "TARS Society", meta: "PR & Marketing Lead"}
+  {title: "TARS Society", meta: "PR & Marketing Lead — outreach & org visibility"}
 ],
 
 education: [
-  {title: "IIIT Bhubaneswar", meta: "B.Tech IT · 2022–26 · CGPA 7.92"},
-  {title: "St. Fateh Singh Convent", meta: "12th CBSE · 85% · JEE AIR 36,700"},
-  {title: "St. Xavier High School", meta: "10th CBSE · 89%"}
+  {title: "IIIT Bhubaneswar", meta: "B.Tech IT · Aug 2022 – Jun 2026"},
+  {title: "St. Fateh Singh Convent", meta: "12th CBSE · Apr 2020 – Mar 2022"},
+  {title: "St. Xavier High School", meta: "10th CBSE · Apr 2008 – Mar 2020"}
 ],
 
 coreSkills: {
-  languages: ["Java", "Python", "Dart", "JavaScript", "C++"],
-  frameworks: ["Spring", "Flutter", "FastAPI", "Android SDK", "Firebase"],
-  infra: ["Docker", "Nginx", "Azure", "Git", "Maven"]
+  languages:  ["Java", "Python", "SQL", "JavaScript", "C/C++"],
+  frameworks: ["Spring Boot", "FastAPI", "React", "Flutter", "Firebase"],
+  databases:  ["PostgreSQL", "MongoDB", "Elastic Search"],
+  cloud:      ["Azure Blob", "Azure AI Search", "AWS S3", "AWS EC2", "CloudFront", "Docker"],
+  tools:      ["Git", "Maven", "Gradle", "Confluence"]
 },
 
-softSkills: [
-  "Problem Solving",
-  "Team Collaboration",
-  "Leadership & PR",
-  "Adaptability",
-  "Communication"
-],
-
 certs: [
-  {title: "Java · GeeksforGeeks", meta: "OOP · Collections · DSA", url: "https://drive.google.com/file/d/1z7d1uKSbUV213u_hvm7Jz4UH-Af7iLJJ/view?usp=drive_link"},
-  {title: "Software Architecture · CodeSignal", meta: "SOLID · Clean Arch · System Design", url: "https://drive.google.com/file/d/1KK5jGBcIy1LA-05xcivHf_PVt7GSB7KI/view?usp=drive_link"}
+  {title: "Java · GeeksforGeeks", meta: "OOP · Collections · Exception Handling · DSA", url: "https://drive.google.com/file/d/1z7d1uKSbUV213u_hvm7Jz4UH-Af7iLJJ/view?usp=drive_link"},
+  {title: "Software Architecture · CodeSignal", meta: "SOLID · Clean Architecture · System Design · Cloud Fundamentals", url: "https://drive.google.com/file/d/1KK5jGBcIy1LA-05xcivHf_PVt7GSB7KI/view?usp=drive_link"}
 ],
 
 contact: [
@@ -82,10 +101,10 @@ contact: [
   {title: "Phone", meta: "+91 94173 28942"},
   {links: [
     {name: "LinkedIn", url: "https://www.linkedin.com/in/ekansh-mittal-ba87a2247/"},
-    {name: "GitHub", url: "https://github.com/ekansh0unofficial"},
+    {name: "GitHub",   url: "https://github.com/ekansh0unofficial"},
     {name: "LeetCode", url: "https://leetcode.com/u/b422026/"},
     {name: "CodeChef", url: "https://www.codechef.com/users/noted_awe_75"},
-    {name: "Medium", url: "https://medium.com/@ekanshmittal04"},
+    {name: "Medium",   url: "https://medium.com/@ekanshmittal04"},
     {name: "X / Twitter", url: "https://x.com/mitt1126"}
   ]}
 ]
